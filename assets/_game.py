@@ -15,8 +15,18 @@ def boot(run):
     run.set('hGameState', 0)
 
 
+TIMER_HZ = 4096 / (256 - 0xBF)    # the timer interrupt (rTMA $BF), which runs the sound engine
+FRAME_HZ = 4194304 / 70224
+
+
 def frame(run):
-    """One frame of MainLoop (without joypad and link) plus the VBlank handler."""
+    """One frame of MainLoop (without joypad and link), the timer interrupts that fall into
+    it (the sound engine: it also sets wSongBeat, which the magnifier viruses dance to)
+    and the VBlank handler."""
+    run.timer_acc = getattr(run, 'timer_acc', 0.0) + TIMER_HZ / FRAME_HZ
+    while run.timer_acc >= 1:
+        run.timer_acc -= 1
+        run.call('TimerHandler')
     run.call('RunGameState')
     for t in ('hTimer1', 'hTimer2'):
         if run.get(t):
