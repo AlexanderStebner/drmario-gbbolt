@@ -1,0 +1,47 @@
+# Virtual folders, in reading order: path | description
+# Functions say where they live with `;@ path: folder/sub`; data blocks without a
+# path go to the folder of the functions that use them.
+boot | Power-on, interrupt vectors and the main loop that runs one game state per frame.
+boot/vectors | The fixed addresses the CPU jumps to: restarts, interrupts, the cartridge entry point.
+boot/header | The cartridge header: logo, title, cartridge type, checksums.
+system | Hardware services used everywhere.
+system/interrupts | The VBlank, timer and LCD interrupt handlers.
+system/link | The link cable: serial interrupt, byte exchange.
+system/lcd | Switching the LCD off, the OAM DMA routine in HRAM.
+system/vblank | Drawing jobs the VBlank handler runs for the game: a new virus, a letter of the ending text, bottle rows.
+system/input | Reading the joypad.
+lib | Small general routines.
+lib/memory | Copying memory blocks.
+lib/math | BCD arithmetic.
+lib/timing | Busy-wait delays.
+gfx | Getting things onto the screen.
+gfx/tiles | Loading tile graphics into VRAM.
+gfx/tilemaps | Background maps: whole screens, blocks, single tiles.
+gfx/objects | Sprites: object records, drawing them into the shadow OAM, blinking cursors.
+gfx/numbers | Drawing BCD numbers.
+screens | The screens around the game itself.
+screens/title | The title screen.
+screens/demo | The title demo: a fixed bottle, fixed capsules and recorded button presses.
+screens/options | Virus level, speed and music selection, for one player and over the link cable.
+game | Clearing viruses: one player, or each side of a link game.
+game/setup | Starting a level: screen, sprites, drop speed, shared capsule list.
+game/viruses | Filling the bottle with viruses.
+game/capsules | Dealing capsules: the random colours, the next capsule.
+game/play | The playing state: moving, rotating and dropping capsules.
+game/lines | Finding four in a row, clearing them, letting halves fall.
+game/score | Points and the virus counters on the side panel.
+game/magnifier | The magnifying glass on the 1-player screen: the three big viruses and their animations.
+game/end | Clearing the level or topping out.
+versus | The 2-player game over the link cable.
+versus/setup | Sharing the bottle and capsules before a round.
+versus/play | A round: exchanging garbage and results.
+versus/results | Round and match results, the win markers.
+cutscenes | The underwater cutscenes: on HI speed after levels 5, 10 and 15, and an ending for each speed after level 20.
+sound | The sound engine (runs once per frame from VBlank).
+sound/api | The engine's entry points and the per-frame update.
+sound/sfx | Sound effects on the square and noise channels.
+sound/sfx/common | Starting effects, writing channel registers, effect timing.
+sound/sfx/square | Square channel effects 1-14.
+sound/sfx/noise | Noise channel effects 1-3.
+sound/music | The music sequencer: songs, patterns with repeats, notes, instruments, vibrato, panning.
+sound/music/songs | The song data: per song a header, a pattern list per channel, the patterns.

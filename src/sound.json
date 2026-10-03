@@ -1,0 +1,33 @@
+{
+  "_doc": "How tools/audio.py drives this game's sound engine. RAM names come from ram.inc. Same engine family as Tetris: square and noise effects, no wave effects.",
+  "init": "InitSound",
+  "update": "UpdateSound",
+  "update_hz": 63.0154,
+  "_update_hz": "the engine runs from the timer interrupt: 4096 Hz / (256 - rTMA $BF)",
+  "power_on": [["rNR52", 128], ["rNR51", 255], ["rNR50", 119]],
+  "stack": "0xCFFF",
+  "pause": {"var": "wSoundPause", "on": 1, "off": 2},
+  "kinds": {
+    "music": {"label": "Music", "request": "wMusicRequest", "playing": "wCurrentSong", "ids": [1, 10], "loops": true, "max_seconds": 150},
+    "sfx":   {"label": "Sound effects (square channel)", "request": "wSFXRequest", "playing": "wSFXPlaying", "ids": [1, 14], "max_seconds": 8},
+    "noise": {"label": "Sound effects (noise channel)", "request": "wNoiseSFXRequest", "playing": "wNoiseSFXPlaying", "ids": [1, 3], "max_seconds": 8}
+  },
+  "music_channels": {
+    "_doc": "per channel: its RAM struct, the offset of the pattern pointer (the note just played is the byte before it), the pattern list pointer, and the flag byte/bit set while a sound effect owns the channel",
+    "structs": ["wChannel1", "wChannel2", "wChannel3", "wChannel4"],
+    "pattern_ptr": 4,
+    "list_ptr": 0,
+    "effect_flag": [15, 128]
+  },
+  "song_data": {"table": "SongTable", "count": 10, "region_end": "UpdateSound", "path": "sound/music/songs",
+                "commands": {"_doc": "pattern command bytes and their length", "9D": 4, "9E": 3, "9F": 2, "9B": 2, "9C": 1}},
+  "effect_channels": {"sfx": [0], "noise": [3]},
+  "names": {
+    "music 1": ["FEVER", "PlayChosenMusic / StartLevelMusic"],
+    "music 2": ["CHILL", "PlayChosenMusic / StartLevelMusic"],
+    "music 3": ["Options screen", "OptionsInit1P / FrameVirusLevel"],
+    "music 7": ["Silence (music OFF, demo)", "PlayChosenMusic / StartLevelMusic"],
+    "sfx 1": ["Menu beep / box change", "ResetDemoTimer, VirusLevelConfirm"],
+    "sfx 3": ["Cursor click", "SetLevelArrowX, SetSpeedArrow, MusicSelect"]
+  }
+}
