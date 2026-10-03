@@ -37,7 +37,7 @@ def chain_chart(ctx):
         'series': series,
         'doc': ['What one cleared virus is worth (ScoreVirus): 100 x 1 / 2 / 3 for LOW / MED / HI, '
                 'doubled for every virus cleared earlier in the same chain, up to 5 times '
-                '(ComboPoints, run here in the emulator for each case). Chain reactions after the '
+                '(ComboPoints, run here for each case). Chain reactions after the '
                 'halves fall keep the count going (hCombo), so a big combo is worth a lot.'],
         'users': ['ScoreVirus', 'ComboPoints'],
     }

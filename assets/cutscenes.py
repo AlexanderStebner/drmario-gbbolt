@@ -44,7 +44,7 @@ def build(ctx):
             'file': url, 'poster': ctx.poster(frames[min(len(frames) - 1, 60 * 6)], name + '_poster'),
             'width': 160, 'height': 144, 'fps': 60,
             'doc': ['The cutscene ' + when + ', recorded by running its game state ({}) frame by frame '
-                    'in the SM83 emulator together with the VBlank handler (which animates the water and '
+                    'together with the VBlank handler (which animates the water and '
                     'types the text). The sound is song 9, rendered from the game\'s sound engine.'.format(CODE[state])],
             'users': [CODE[state], 'LoadUnderwaterScreen', 'TypeEndingText', 'VBlankDraw'],
         })
